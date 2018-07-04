@@ -32,8 +32,9 @@ int main(int argc, char *argv[])
 		 printf("file write error!!\n");
 	 	 return -1;
 	}
-	  //
+	  //커서 위치를 파일의 시작점 기준으로 offset 0으로 변경
 	 lseek(fd, 0, SEEK_SET);
+	  //rbuf 배열을 0으로 초기화	
 	 memset(rbuf,0,BUFSIZE);
 	 count = read(fd,rbuf,BUFSIZE);
 	 if(count<1)
