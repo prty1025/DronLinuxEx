@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 	int fd;
         int count;
         char wbuf[BUFSIZE];
+	char result[BUFSIZE];
         char rbuf[BUFSIZE];
         printf("argv[0]=%s\n",argv[0]);
         printf("argv[1]=%s\n",argv[1]);
@@ -23,8 +24,8 @@ int main(int argc, char *argv[])
         	 printf("file error!!\n");
       	         return -1;
         }
-
-       sprintf(wbuf,"Do not count the before they hatch.");
+	// Do not count your chickens befor they hatch
+       sprintf(wbuf,"Do not count chickens before they hatch.");
        printf("%s\n",wbuf);
        count = write(fd, wbuf, strlen(wbuf));
         if(count<1)
@@ -33,8 +34,9 @@ int main(int argc, char *argv[])
 	 	 return -1;
 	}
 	  //커서 위치를 파일의 시작점 기준으로 offset 0으로 변경
-	 lseek(fd, 0, SEEK_SET);
+	 lseek(fd, 13, SEEK_SET);
 	  //rbuf 배열을 0으로 초기화	
+	  //sprintf(wbuf,"your %s",rbuf);
 	 memset(rbuf,0,BUFSIZE);
 	 count = read(fd,rbuf,BUFSIZE);
 	 if(count<1)
@@ -42,5 +44,16 @@ int main(int argc, char *argv[])
 	 	 printf("file read error!!\n");
 	   	 return -1;
 	 }
+	 printf("%s\n",rbuf);
+	 sprintf(result,"your %s",rbuf);
+	 
+	 lseek(fd, 13, SEEK_SET);
+	 count =write(fd,result,strlen(result));
+	  if(count<1)
+	   {
+		    printf("file write error!!\n");
+		    return -1;
+	   }
+
 	   close(fd);
 }
