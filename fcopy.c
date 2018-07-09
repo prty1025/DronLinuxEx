@@ -4,10 +4,11 @@
 int main(int argc, char **argv)
 {
 	int count;
+	int temp;
 	FILE *in, *out;
 	char buf[BUFSIZ]; //8192로 선언되어있음 
 
-
+	printf("FILE* in addr =%p\n",in);
        //printf("BUFSIZ=%d\n",BUFSIZ);
 
 	if(argc<3)
@@ -15,12 +16,17 @@ int main(int argc, char **argv)
 		fprintf(stderr,"Usage : file1 file2\n");
 		return -1;
 	}
-
+	
 	if((in =fopen(argv[1],"r"))==NULL)
 	{
 		perror(argv[1]);
 		return -1;
 	}
+	 printf("FILE* in addr =%p\n",in);
+
+	 temp=in->_fileno;
+	 printf("fd=%d\n",temp);
+
 	if((out = fopen(argv[2],"w"))==NULL)
 	{
 		perror(argv[2]);
